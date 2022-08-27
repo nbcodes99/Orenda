@@ -1,4 +1,3 @@
-from tkinter import Button
 from typing import Type
 import discord, time
 import math, random

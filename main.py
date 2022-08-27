@@ -6,7 +6,7 @@ import pywhatkit
 import json, datetime
 import discord.ui, io
 import requests, aiohttp
-import asyncio, json
+import asyncio, json, os
 import logging
 from covid import Covid
 from discord import app_commands
@@ -1296,4 +1296,4 @@ class TicTacToe(discord.ui.View):
 async def ttt(ctx: commands.Context):
     await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
 
-client.run(token, log_handler=handler)
+client.run(os.getenv('DISCORD_TOKEN'), log_handler=handler)

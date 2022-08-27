@@ -5,7 +5,7 @@ import json, datetime
 import discord.ui, io
 import requests, aiohttp
 import asyncio, json, os
-import logging
+import logging, mouseinfo
 import pyautogui as pg
 from covid import Covid
 from discord import app_commands
@@ -92,7 +92,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     ping = f"<@{client.user.id}>"
-    words = ['fuck you', 'mf', 'motherfucker', 'bitch', 'blowjob']
+    words = ['fuck you', 'mf', 'motherfucker', 'bitch', 'blowjob', 'handjob', 'meth', 'dumbass']
     if message.content == ping:
         pingView = discord.ui.View()
         pingItem = discord.ui.Button(style=discord.ButtonStyle.link, label=" ➕ Invite", url="https://discord.com/oauth2/authorize?client_id=1003123662716674088&permissions=0&scope=applications.commands%20bot")
@@ -104,7 +104,7 @@ async def on_message(message):
 
     for word in words:
         if message.content == word:
-            await message.channel.send("Bad word!")
+            await message.channel.purge(limit=1)
     await client.process_commands(message)
 
 @client.event
@@ -657,7 +657,7 @@ class Roll(discord.ui.View):
 
     @discord.ui.button(label="Roll Again!", style=discord.ButtonStyle.blurple, emoji="🎲")
     async def roll_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        rollEmbed = discord.Embed(title="-Rolling Dice-", description=f"I rolled {random.randint(1, 100)}!", color=0xb87ee7)
+        rollEmbed = discord.Embed(title="-Rolling Dice-", description=f"I rolled {random.randint(1, 390)}!", color=0xb87ee7)
         await interaction.response.edit_message(embed=rollEmbed)
 
     @discord.ui.button(label="End", style=discord.ButtonStyle.gray)
@@ -678,6 +678,12 @@ async def roll(ctx):
     rollEmbed = discord.Embed(title="-Rolling Dice-", description=f"I rolled {random.randint(1, 100)}!", color=0xb87ee7)
     rollView = Roll()
     await ctx.send(embed=rollEmbed, view=rollView)
+
+@client.tree.command(name="roll", description="Rolls a random number..")
+async def roll(interaction: discord.Interaction):
+    rollEmbed = discord.Embed(title="-Rolling Dice-", description=f"I rolled {random.randint(1, 390)}!", color=0xb87ee7)
+    rollView = Roll()
+    await interaction.response.send_message(embed=rollEmbed, view=rollView)
 
 # class MyView(discord.ui.View):
 #     def __init__(self, timeout=5):
@@ -1295,4 +1301,5 @@ class TicTacToe(discord.ui.View):
 async def ttt(ctx: commands.Context):
     await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
 
-client.run(os.getenv('DISCORD_TOKEN'), log_handler=handler)
+# client.run(os.getenv('DISCORD_TOKEN'), log_handler=handler)
+client.run(token)

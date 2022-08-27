@@ -5,7 +5,8 @@ import json, datetime
 import discord.ui, io
 import requests, aiohttp
 import asyncio, json, os
-import logging, pyautogui
+import logging
+import pyautogui as pg
 from covid import Covid
 from discord import app_commands
 import sqlite3, contextlib

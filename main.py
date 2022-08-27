@@ -67,28 +67,28 @@ async def on_guild_join(guild):
     if res:
         c.execute('UPDATE prefixes SET prefix = ? WHERE guild_ID = ?', {'o!', guild.id})
 
-@client.command(aliases=['changeprefix'])
-async def setprefix(ctx, prefix: str):
-    if len(prefix) > 3:
-        errPrefix = discord.Embed(title="Error", description=f"{ctx.author.mention}, prefix can't be longer that 3 characters!")
-        await ctx.reply(embed=errPrefix)
-    db = sqlite3.connect('prefixes.db')
-    c = db.cursor()
-    c.execute(f'SELECT * prefix FROM prefixes WHERE guild_ID = {ctx.guild.id}')
-    res = c.fetchone()
+# @client.command(aliases=['changeprefix'])
+# async def setprefix(ctx, prefix: str):
+#     if len(prefix) > 3:
+#         errPrefix = discord.Embed(title="Error", description=f"{ctx.author.mention}, prefix can't be longer that 3 characters!")
+#         await ctx.reply(embed=errPrefix)
+#     db = sqlite3.connect('prefixes.db')
+#     c = db.cursor()
+#     c.execute(f'SELECT * prefix FROM prefixes WHERE guild_ID = {ctx.guild.id}')
+#     res = c.fetchone()
 
-    if not res:
-        c.execute("INSERT INTO prefixes(guild_ID, prefix) VALUES(?, ?)", {ctx.guild.id, prefix})
-    if res: 
-        c.execute('UPDATE prefixes SET prefix = ? WHERE guild_id = ?', {prefix, ctx.guild.id})
+#     if not res:
+#         c.execute("INSERT INTO prefixes(guild_ID, prefix) VALUES(?, ?)", {ctx.guild.id, prefix})
+#     if res: 
+#         c.execute('UPDATE prefixes SET prefix = ? WHERE guild_id = ?', {prefix, ctx.guild.id})
 
-    db.commit()
-    c.close()
-    db.close()
+#     db.commit()
+#     c.close()
+#     db.close()
 
-    prefixEmbed = discord.Embed(title="New Prefix", description=f"New prefix is `{prefix}` !!", color=0xbdc8ff)
-    await ctx.send(embed=prefixEmbed)
-    return prefix
+#     prefixEmbed = discord.Embed(title="New Prefix", description=f"New prefix is `{prefix}` !!", color=0xbdc8ff)
+#     await ctx.send(embed=prefixEmbed)
+#     return prefix
 
 @client.event
 async def on_message(message):
@@ -1180,9 +1180,9 @@ async def modal(interaction: discord.Interaction):
     # modalView = ModView()
     await interaction.response.send_modal(Intro())
 
-# @client.command()
-# async def setprefix(ctx):
-#     await ctx.reply("Development on progress. Sorry for the inconvinience.")
+@client.command()
+async def setprefix(ctx):
+    await ctx.reply("Development on progress. Sorry for the inconvinience.")
 
 class TicTacToeButton(discord.ui.Button['TicTacToe']):
     def __init__(self, x: int, y: int):

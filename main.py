@@ -5,7 +5,7 @@ import json, datetime
 import discord.ui, io
 import requests, aiohttp
 import asyncio, json, os
-import logging
+import logging, pyautogui
 from covid import Covid
 from discord import app_commands
 import sqlite3, contextlib
@@ -17,26 +17,26 @@ token = "MTAwMzEyMzY2MjcxNjY3NDA4OA.GP9bOV.iwKhRKFaQ9Gk0Estrz-wpZdrQiLcTU3wq5YFd
 
 handler = logging.FileHandler(filename='orenda.log', encoding='utf-8', mode='w')
 
-def get_prefix(ctx):
-    db = sqlite3.connect('prefixes.db')
-    c = db.cursor()
-    # cursor.execute("""CREATE TABLE prefixes (
-    #     guild_ID INTEGER,
-    #     prefix TEXT
-    # )""")
-    c.execute(f'SELECT prefix FROM prefixes WHERE guild_ID = {ctx.guild.id}')
-    res = c.fetchall()
+# def get_prefix(ctx):
+#     db = sqlite3.connect('prefixes.db')
+#     c = db.cursor()
+#     # cursor.execute("""CREATE TABLE prefixes (
+#     #     guild_ID INTEGER,
+#     #     prefix TEXT
+#     # )""")
+#     c.execute(f'SELECT prefix FROM prefixes WHERE guild_ID = {ctx.guild.id}')
+#     res = c.fetchall()
 
-    if res:
-        prefix = (res[0])
-    if res:
-        prefix = 'o!'
+#     if res:
+#         prefix = (res[0])
+#     if res:
+#         prefix = 'o!'
 
-    db.commit()
-    c.close()
-    db.close()
+#     db.commit()
+#     c.close()
+#     db.close()
 
-    return prefix
+#     return prefix
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -51,19 +51,19 @@ async def on_ready():
     await client.tree.sync()
     print("All tree commands synced!")
 
-@client.event
-async def on_guild_join(guild):
-    global prefix
-    db = sqlite3.connect('prefixes.db')
-    c = db.cursor()
-    c.execute(f'SELECT * prefix FROM prefixes WHERE guild_ID = {guild.id}')
-    res = c.fetchall()
+# @client.event
+# async def on_guild_join(guild):
+#     global prefix
+#     db = sqlite3.connect('prefixes.db')
+#     c = db.cursor()
+#     c.execute(f'SELECT * prefix FROM prefixes WHERE guild_ID = {guild.id}')
+#     res = c.fetchall()
 
-    if not res:
-        c.execute(f'INSERT INTO prefixes(guild_ID, prefix) VALUES(?, ?)', {guild.id, 'o!'})
+#     if not res:
+#         c.execute(f'INSERT INTO prefixes(guild_ID, prefix) VALUES(?, ?)', {guild.id, 'o!'})
 
-    if res:
-        c.execute('UPDATE prefixes SET prefix = ? WHERE guild_ID = ?', {'o!', guild.id})
+#     if res:
+#         c.execute('UPDATE prefixes SET prefix = ? WHERE guild_ID = ?', {'o!', guild.id})
 
 # @client.command(aliases=['changeprefix'])
 # async def setprefix(ctx, prefix: str):

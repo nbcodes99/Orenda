@@ -948,30 +948,102 @@ Syntax: .rps scissors```""")
                 spEmbed.timestamp = datetime.datetime.now()
                 await ctx.reply(embed=spEmbed)
 
+class Guess(discord.ui.View):
+    def __init__(self, timeout=30):
+        super().__init__(self, timeout=timeout)
+
+    @discord.ui.button(label="Lower", style=discord.ButtonStyle.blurple)
+    async def lower_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
+        secret_number = random.randint(0, 100)
+        hint_number = random.randint(0, 100)
+
+        successGuessEmbed = discord.Embed(title="You got it!!", description="", color=0x3dff24)
+        successGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+        successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+        successGuessEmbed.set_footer(text="Winner Winner")
+        # successGuessEmbed.timestamp = datetime.datetime.now()
+
+        failGuessEmbed = discord.Embed(title="You lost!", description="", color=0xff2424)
+        failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+        failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+        failGuessEmbed.set_footer(text="Loser Loser!")
+        if hint_number > secret_number:
+            await interaction.response.edit_message(embed=successGuessEmbed)
+        else:
+            await interaction.response.send_message(embed=failGuessEmbed)
+
+    @discord.ui.button(label="JACKPOT!", style=discord.ButtonStyle.blurple)
+    async def jackpot_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
+        secret_number = random.randint(0, 100)
+        hint_number = random.randint(0, 100)
+
+        successGuessEmbed = discord.Embed(title="You got it!!", description="", color=0x3dff24)
+        successGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+        successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+        successGuessEmbed.set_footer(text="Winner Winner")
+        # successGuessEmbed.timestamp = datetime.datetime.now()
+
+        failGuessEmbed = discord.Embed(title="You lost!", description="", color=0xff2424)
+        failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+        failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+        failGuessEmbed.set_footer(text="Loser Loser!")
+        if hint_number == secret_number:
+            await interaction.response.edit_message(embed=successGuessEmbed)
+        else:
+            await interaction.response.send_message(embed=failGuessEmbed)
+
+    @discord.ui.button(label="JACKPOT!", style=discord.ButtonStyle.blurple)
+    async def higher_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
+        secret_number = random.randint(0, 100)
+        hint_number = random.randint(0, 100)
+
+        successGuessEmbed = discord.Embed(title="You got it!!", description="", color=0x3dff24)
+        successGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+        successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+        successGuessEmbed.set_footer(text="Winner Winner")
+        # successGuessEmbed.timestamp = datetime.datetime.now()
+
+        failGuessEmbed = discord.Embed(title="You lost!", description="", color=0xff2424)
+        failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+        failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+        failGuessEmbed.set_footer(text="Loser Loser!")
+        if hint_number < secret_number:
+            await interaction.response.edit_message(embed=successGuessEmbed)
+        else:
+            await interaction.response.edit_message(embed=failGuessEmbed)
+
 @client.command(aliases=['gtn', 'gnum'])
 async def guess(ctx):
-    # await ctx.channel.trigger_typing()
-    colors = ['0x49926c', '0x19e67c', '0x80e619', '0xf0f8e8', '0xebb624', '0x6924eb', '0x484252', '0x86848b', '0xe61961', '0xff0000', '0xb5b0b0', '0x360c0c']
-    gnumber = random.randint(0, 100)
-    guessEmbed = discord.Embed(title="Guess The Number", description="Guess a number (1-100)", color=0xb5b0b0)
-    guessEmbed.timestamp = datetime.datetime.now()
-    await ctx.reply(embed=guessEmbed)
-    while True:
-        try:
-            response = await client.wait_for('message', timeout=30)
-            guess = response.content
-            if guess > gnumber: 
-                await ctx.send(f"Your number({guess}) is too high. Try again.")
-            elif guess < gnumber:
-                await ctx.send(f"Your number({guess}) is too low. Try again.")
-            else:
-                corEmbed = discord.Embed(title="You got it!", description=f"`{gnumber}` is correct!", color=0x17e81a)
-                corEmbed.timestamp = datetime.datetime.now()
-                await ctx.reply(embed=corEmbed)
-                break
-        except asyncio.TimeoutError:
-            await ctx.reply("You didn't respond on time.")
-            break
+    guessView = Guess()
+    hint_number = random.randint(0, 100)
+    indexGuessEmbed = discord.Embed(title="", description="The secret number is between 1-100", color=0xb5b0b0)
+    indexGuessEmbed.set_author(name=f"{ctx.author.name}\'s high-low", icon_url=ctx.author.avatar.url)
+    indexGuessEmbed.add_field(name=f"Your hint is {hint_number}", value=f"Is the number *higher* or *lower*? ", inline=False)
+    indexGuessEmbed.set_footer(text=client.user.name, icon_url=client.user.avatar.url)
+    await ctx.send(embed=indexGuessEmbed, view=guessView)
+    # indexGuessEmbed.timestamp = datetime.datetime.now()
+
+    # colors = ['0x49926c', '0x19e67c', '0x80e619', '0xf0f8e8', '0xebb624', '0x6924eb', '0x484252', '0x86848b', '0xe61961', '0xff0000', '0xb5b0b0', '0x360c0c']
+    # gnumber = random.randint(0, 100)
+    # guessEmbed = discord.Embed(title="Guess The Number", description="Guess a number (1-100)", color=0xb5b0b0)
+    # guessEmbed.timestamp = datetime.datetime.now()
+    # await ctx.reply(embed=guessEmbed)
+    # while True:
+    #     try:
+    #         response = await client.wait_for('message', timeout=30)
+    #         guess = response.content
+    #         if guess > gnumber: 
+    #             await ctx.send(f"Your number({guess}) is too high. Try again.")
+    #         elif guess < gnumber:
+    #             await ctx.send(f"Your number({guess}) is too low. Try again.")
+    #         else:
+    #             corEmbed = discord.Embed(title="You got it!", description=f"`{gnumber}` is correct!", color=0x17e81a)
+    #             corEmbed.timestamp = datetime.datetime.now()
+    #             await ctx.reply(embed=corEmbed)
+    #             break
+    #     except asyncio.TimeoutError:
+    #         await ctx.reply("You didn't respond on time.")
+    #         break
 
 @client.tree.command(name="cat", description="Sends a random cat image.")
 async def cat(interaction: discord.Interaction):
@@ -1100,6 +1172,7 @@ class Help(discord.ui.Select):
             utilHelpEmbed = discord.Embed(title="Utility Commands", description="", color=0xffd1d1)
             utilHelpEmbed.add_field(name="Ping", value=">>> A basic ping pong command with latency\n Syntax: `o!ping or o!pong` (Available in slash commands).", inline=False)
             utilHelpEmbed.add_field(name="Bless", value=">>> Bless someone..\n Syntax: `o!bless [member]` (Available in slash commands).", inline=False)
+            utilHelpEmbed.add_field(name="Roll", value=">>> Rolls a random number.\n Syntax: `o!roll` (Available in slash commands).", inline=False)
             utilHelpEmbed.add_field(name="Dictionary", value=">>> The dictionary command that searches a word on google\n Syntax: `o!google [word]` (Available in slash commands).", inline=False)
             utilHelpEmbed.add_field(name="Reminder", value=">>> A reminder command that reminds you about something\n Syntax: `o!remind [time] [about]`", inline=False)
             utilHelpEmbed.add_field(name="Timer", value=">>> A timer command\n Syntax: `o!timer [time] [timerName]`", inline=False)

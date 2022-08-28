@@ -93,6 +93,10 @@ async def on_ready():
 async def on_message(message):
     ping = f"<@{client.user.id}>"
     words = ['fuck you', 'mf', 'motherfucker', 'bitch', 'blowjob', 'handjob', 'meth', 'dumbass']
+    with open('content.txt', 'w') as mes:
+        mes.write(message.content)
+        mes.close()
+
     if message.content == ping:
         pingView = discord.ui.View()
         pingItem = discord.ui.Button(style=discord.ButtonStyle.link, label=" ➕ Invite", url="https://discord.com/oauth2/authorize?client_id=1003123662716674088&permissions=0&scope=applications.commands%20bot")
@@ -376,7 +380,7 @@ async def id(interaction: discord.Interaction, user: discord.Member=None):
     if user == None:
         await interaction.response.send_message(f"Your ID: {interaction.user.id}", ephemeral=True)
     else:   
-        await interaction.response.send_message("{}, {}".format(f"{user.name}'s ID: ", {user.id}), ephemeral=True)
+        await interaction.response.send_message("{} {}".format(f"{user.name}'s ID:", {user.id}), ephemeral=True)
 
 @unban.error
 async def unban_error(ctx, error):
@@ -419,13 +423,13 @@ async def serverIcon(ctx):
     siEmbed.set_footer(text=f"Aliases: si, sicon, svicon", icon_url=ctx.author.avatar.url)
     await ctx.send(embed=siEmbed)
 
-client.tree.command(name="servericon", description="Display the server icon.")
+@client.tree.command(name="servericon", description="Display the server icon.")
 async def serverIcon(interaction: discord.Interaction):
     icon = interaction.guild.icon
     siEmbed = discord.Embed(title=f"{interaction.guild.name}'s icon", url=icon, color=0xd8d5d5)
     siEmbed.set_image(url=icon)
     siEmbed.timestamp = datetime.datetime.now()
-    siEmbed.set_footer(text=f"Aliases: si, sicon, svicon", icon_url=interaction.user.avatar.url)
+    siEmbed.set_footer(text=f"Aliases: `si, sicon, svicon`", icon_url=interaction.user.avatar.url)
     await interaction.response.send_message(embed=siEmbed)
 
 @client.command()
@@ -438,28 +442,32 @@ async def remind(ctx, time, *, about):
         try:
             long = int(time)
         except:
-            convertTimeList = {'s':1, 'm':60, 'h':3600, 'd':86400, 'w':604800, 'S':1, 'M':60, 'H':3600, 'D':86400, 'W':604800}
+            convertTimeList = {'s':1, 'm':60, 'h':3600, 'd':86400, 'w':604800, 'mth': 2678400, 'y': 31536000, 'S':1, 'M':60, 'H':3600, 'D':86400, 'W':604800, 'MTH': 2678400, 'Y': 31536000}
             long = int(time[:-1]) * convertTimeList[time[-1]]
-        if long > 604800:
-            await ctx.send("I can't remind you something over a week.")
+        if long > 31536000:
+            await ctx.reply("I can't remind you something over a year.")
             return
         if long <= 0:
-            await ctx.send("Invalid time inserted.")
+            await ctx.reply("Invalid time inserted.")
             return
-        if long >= 86400:
-            reminder = await ctx.send(f"I'll remind you about `{about}` in {long//86400} days.")
+        if long >= 2678400:
+            reminder = await ctx.reply(f"Alright {ctx.author.name}, i'll remind you about `{about}` in {long//2678400} months.")
+        elif long >= 604800:
+            reminder = await ctx.reply(f"Alright {ctx.author.name}, i'll remind you about `{about}` in {long//604800} weeks.")
+        elif long >= 86400:
+            reminder = await ctx.reply(f"Alright {ctx.author.name}, i'll remind you about `{about}` in {long//86400} days.")
         elif long >= 3600:
-            reminder = await ctx.send(f"I'll remind you about `{about}` in {long//3600} hours.")
+            reminder = await ctx.reply(f"Alright {ctx.author.name}, i'll remind you about `{about}` in {long//3600} hours.")
         elif long >= 60:
-            reminder = await ctx.send(f"I'll remind you about `{about}` in {long//60} minutes.")
+            reminder = await ctx.reply(f"Alright {ctx.author.name}, i'll remind you about `{about}` in {long//60} minutes.")
         elif long < 60:
-            reminder = await ctx.send(f"I'll remind you about `{about}` in {long} seconds.")
+            reminder = await ctx.reply(f"Alright {ctx.author.name}, i'll remind you about `{about}` in {long} seconds.")
         while True:
             try:
-                await asyncio.sleep(5)
-                long -= 5
+                await asyncio.sleep(10)
+                long -= 10
                 if long <= 0:
-                    reEmbed = discord.Embed(title=f"Your reminder ends!", description=f"Hi {ctx.author.name}! {time} ago, You asked me to remind you about [{about}]({reminder.jump_url}).", color=0x1a53ff)
+                    reEmbed = discord.Embed(title=f"Your reminder ends!", description=f"Hi {ctx.author.name}! {time} ago, you asked me to remind you about [{about}]({reminder.jump_url}).", color=0x1a53ff)
                     reDm = await ctx.author.create_dm()
                     await reDm.send(embed=reEmbed)
                     break
@@ -474,7 +482,9 @@ async def remind_error(ctx, error):
         await ctx.send(f""" Syntax: ```
 .remind [time][about]
 Example:
-m!remind 10s test```
+o!remind 10s test
+
+use `mth` for month not `m`.```
     """)
 
 @client.command(aliases=['ui', 'whois', 'uinfo'])
@@ -483,18 +493,23 @@ async def userinfo(ctx, user: discord.Member=None):
     if user == None:
         user = ctx.author
 
-    userEmbed = discord.Embed(colour=user.colour, timestamp=ctx.message.created_at)
+    userEmbed = discord.Embed(color=0xadefff, timestamp=ctx.message.created_at)
     userView = discord.ui.View()
-    userItem = discord.ui.Button(style=discord.ButtonStyle.link, label=" 🖼️ Avatar Link", url=user.avatar.url)
+    userItem = discord.ui.Button(style=discord.ButtonStyle.link, label="Avatar Link", url=user.avatar.url, emoji="🖼️")
     userView.add_item(item=userItem)
-    userEmbed.set_author(name=f"{user.name}'s Information.", icon_url=user.avatar.url)
+    userEmbed.set_author(name=f"{user.name}'s Information", icon_url=user.avatar.url)
     userEmbed.set_thumbnail(url=user.avatar.url),
-    userEmbed.set_footer(text=f"Aliases: [ui, whois, uinfo]", icon_url=f"{client.user.avatar.url}")
+    userEmbed.set_footer(text=f"Aliases: `ui, whois, uinfo`", icon_url=f"{client.user.avatar.url}")
 
-    userEmbed.add_field(name="ID", value=f"`{user.id}`", inline=False)
-    userEmbed.add_field(name="Name", value=f"`{user.name}`, `{user}`", inline=False)
-    userEmbed.add_field(name="Created At", value=f"`{user.created_at.strftime(date_format)}`", inline=False)
-    userEmbed.add_field(name="Joined At", value=f"`{user.joined_at.strftime(date_format)}`", inline=False)
+    userEmbed.add_field(name="ID", value=f"{user.id}", inline=False)
+    userEmbed.add_field(name="Name", value=f"{user}", inline=False)
+    userEmbed.add_field(name="Registered At", value=f"{user.created_at.strftime(date_format)}", inline=False)
+    userEmbed.add_field(name="Joined At", value=f"{user.joined_at.strftime(date_format)}", inline=False)
+    # userEmbed.add_field(name="", value="", inline=False)
+    userEmbed.add_field(name="Nick", value=user.nick, inline=True)
+    # userEmbed.add_field(name="Invoice", value=user.voice_state, inline=False)
+    userEmbed.add_field(name="Status", value=user.status, inline=True)
+    userEmbed.add_field(name="Game", value=user.activity, inline=False)
     userEmbed.add_field(name="Top Role", value=f"{user.top_role.mention}", inline=False)
     userEmbed.add_field(name="Bot?", value=f"`{user.bot}`", inline=False)
 
@@ -638,7 +653,7 @@ async def coinflip(ctx):
         coinheadsEmbed.set_footer(text=f"Flipped by: {ctx.author.name}", icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=coinheadsEmbed)
 
-@client.tree.command(name="coinflip", description="Flips a coin for a heads or tails.")
+@client.tree.command(name="coinflip", description="Flips a coin for heads or tails.")
 async def coinflip(interaction: discord.Interaction):
     flipOpt = ['heads', 'tails']
     flipOpts = random.choice(flipOpt)
@@ -652,7 +667,7 @@ async def coinflip(interaction: discord.Interaction):
         await interaction.response.send_message(embed=coinheadsEmbed)
 
 class Roll(discord.ui.View):
-    def __init__(self, timeout=5):
+    def __init__(self, timeout=15):
         super().__init__(timeout=timeout)
 
     @discord.ui.button(label="Roll Again!", style=discord.ButtonStyle.blurple, emoji="🎲")
@@ -753,12 +768,12 @@ async def avatar_error(ctx, error):
 @client.command(aliases=['pong'])
 @commands.cooldown(3, 10, commands.BucketType.user)
 async def ping(ctx):
-	await ctx.reply(f"Pong! {round(client.latency * 1000)}ms")
+	await ctx.reply(f"Pong! \n Latency: {round(client.latency * 1000)}ms")
 
 @client.tree.command(name="ping", description="Ping! pong! slash command and the latency of the bot.")
 @commands.cooldown(3, 10, commands.BucketType.user)
 async def ping(interaction: discord.Interaction):
-	await interaction.response.send_message(f"Pong! {round(client.latency * 1000)}ms", ephemeral=True)
+	await interaction.response.send_message(f"Pong! \n Latency: {round(client.latency * 1000)}ms", ephemeral=True)
 
 @client.tree.command(name='invite', description="Sends the bot invite link.")
 @commands.cooldown(1, 10, commands.BucketType.user)
@@ -770,12 +785,12 @@ async def invite(interaction: discord.Interaction):
 
     inviteGifsChoice = random.choice(inviteGifs)
     inviteView = discord.ui.View()
-    inviteItem = discord.ui.Button(style=discord.ButtonStyle.link, label=" ➕ Invite", url="https://discord.com/oauth2/authorize?client_id=1003123662716674088&permissions=0&scope=applications.commands%20bot")
+    inviteItem = discord.ui.Button(style=discord.ButtonStyle.link, label="Invite", url="https://discord.com/oauth2/authorize?client_id=1003123662716674088&permissions=0&scope=applications.commands%20bot", emoji="🔗")
 
     inviteView.add_item(item=inviteItem)
     inviteEmbed = discord.Embed(title="Bot Invite", description="Invite [orenda](https://discord.com/oauth2/authorize?client_id=1003123662716674088&permissions=0&scope=applications.commands%20bot) using the button or link!", color=0x4585ed)
-    inviteEmbed.timestamp = datetime.datetime.now()
-    inviteEmbed.set_footer(text=interaction.user.name, icon_url=interaction.user.avatar.url)
+    # inviteEmbed.timestamp = datetime.datetime.now()
+    # inviteEmbed.set_footer(text=interaction.user.name, icon_url=interaction.user.avatar.url)
     inviteEmbed.set_thumbnail(url=inviteGifsChoice)
     await interaction.response.send_message(embed=inviteEmbed, view=inviteView)
 
@@ -789,12 +804,12 @@ async def invite(ctx):
 
     inviteGifsChoice = random.choice(inviteGifs)
     inviteView = discord.ui.View()
-    inviteItem = discord.ui.Button(style=discord.ButtonStyle.link, label=" ➕ Invite", url="https://discord.com/oauth2/authorize?client_id=1003123662716674088&permissions=0&scope=applications.commands%20bot")
+    inviteItem = discord.ui.Button(style=discord.ButtonStyle.link, label="Invite", url="https://discord.com/oauth2/authorize?client_id=1003123662716674088&permissions=0&scope=applications.commands%20bot", emoji="🔗")
 
     inviteView.add_item(item=inviteItem)
     inviteEmbed = discord.Embed(title="Bot Invite", description="Invite [orenda](https://discord.com/oauth2/authorize?client_id=1003123662716674088&permissions=0&scope=applications.commands%20bot) using the button or link!", color=0x4585ed)
-    inviteEmbed.timestamp = datetime.datetime.now()
-    inviteEmbed.set_footer(text=ctx.author.name, icon_url=ctx.author.avatar.url)
+    # inviteEmbed.timestamp = datetime.datetime.now()
+    # inviteEmbed.set_footer(text=ctx.author.name, icon_url=ctx.author.avatar.url)
     inviteEmbed.set_thumbnail(url=inviteGifsChoice)
     await ctx.send(embed=inviteEmbed, view=inviteView)
 
@@ -961,7 +976,6 @@ class Guess(discord.ui.View):
         successGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
         successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
         successGuessEmbed.set_footer(text="Winner Winner")
-        # successGuessEmbed.timestamp = datetime.datetime.now()
 
         failGuessEmbed = discord.Embed(title="You lost!", description="", color=0xff2424)
         failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
@@ -1012,14 +1026,14 @@ class Guess(discord.ui.View):
         else:
             await interaction.response.edit_message(embed=failGuessEmbed)
 
-@client.command(aliases=['gtn', 'gnum'])
+@client.command()
 async def guess(ctx):
     guessView = Guess()
     hint_number = random.randint(0, 100)
     indexGuessEmbed = discord.Embed(title="", description="The secret number is between 1-100", color=0xb5b0b0)
     indexGuessEmbed.set_author(name=f"{ctx.author.name}\'s high-low", icon_url=ctx.author.avatar.url)
     indexGuessEmbed.add_field(name=f"Your hint is {hint_number}", value=f"Is the number *higher* or *lower*? ", inline=False)
-    indexGuessEmbed.set_footer(text=client.user.name, icon_url=client.user.avatar.url)
+    indexGuessEmbed.set_footer(text="Jackpot is if the number is the same.")
     await ctx.send(embed=indexGuessEmbed, view=guessView)
     # indexGuessEmbed.timestamp = datetime.datetime.now()
 
@@ -1375,4 +1389,4 @@ async def ttt(ctx: commands.Context):
     await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
 
 # client.run(os.getenv('DISCORD_TOKEN'), log_handler=handler)
-client.run(token)
+client.run(token, log_handler=handler)

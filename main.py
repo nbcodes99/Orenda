@@ -1388,9 +1388,9 @@ class TicTacToe(discord.ui.View):
 async def ttt(ctx: commands.Context):
     await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
 
-load_dotenv()
-client.run(os.getenv('DISCORD_TOKEN'), log_handler=handler)
+# load_dotenv()
 
+client.run(os.getenv('DISCORD_TOKEN'), log_handler=handler)
 
 
 

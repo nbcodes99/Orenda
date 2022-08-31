@@ -1,6 +1,6 @@
 import discord, time
 import math, random
-# import pywhatkit
+import pywhatkit
 import json, datetime
 import discord.ui, io
 import requests, aiohttp
@@ -394,24 +394,24 @@ async def unban_error(ctx, error):
 
 # UTILITY COMMANDS !!
 
-# @client.command(aliases=['yt'])
-# @commands.cooldown(1, 15, commands.BucketType.user)
-# async def youtube(ctx, *, search):
-# 	await ctx.reply(pywhatkit.playonyt(search, open_video=False))
+@client.command(aliases=['yt'])
+@commands.cooldown(1, 15, commands.BucketType.user)
+async def youtube(ctx, *, search):
+	await ctx.reply(pywhatkit.playonyt(search, open_video=False))
 
-# @client.tree.command(name="youtube", description="Finds a video from youtube.")
-# @commands.cooldown(1, 15, commands.BucketType.user)
-# async def youtube(interaction: discord.Interaction, search: str):
-# 	await interaction.response.send_message(pywhatkit.playonyt(search, open_video=False))
+@client.tree.command(name="youtube", description="Finds a video from youtube.")
+@commands.cooldown(1, 15, commands.BucketType.user)
+async def youtube(interaction: discord.Interaction, search: str):
+	await interaction.response.send_message(pywhatkit.playonyt(search, open_video=False))
 
-# @youtube.error
-# async def youtube_error(ctx, error):
-#     if isinstance(error, commands.MissingRequiredArgument):
-#         await ctx.reply("""Syntax: ```
-# o!youtube [search]
-# Ex: o!youtube MrBeast
-# You can also search a video by writing the video title.```
-#         """)
+@youtube.error
+async def youtube_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.reply("""Syntax: ```
+o!youtube [search]
+Ex: o!youtube MrBeast
+You can also search a video by writing the video title.```
+        """)
 
 @client.command(aliases=['si', 'sicon', 'servericon', 'svicon'])
 async def serverIcon(ctx):
@@ -1071,6 +1071,14 @@ async def cat(interaction: discord.Interaction):
     catEmbed.timestamp = datetime.datetime.now()
     await interaction.response.send_message(embed=catEmbed)
 
+@client.command()
+async def cat(ctx: commands.Context):
+    async with ctx.session.get('https://api.thecatapi.com/v1/images/search') as resp:
+        if resp.status != 200:
+            return await ctx.send('No cat found :(')
+        js = await resp.json()
+        await ctx.send(embed=discord.Embed(title='Random Cat').set_image(url=js[0]['url']))
+
 @client.tree.command(name="dog", description="Sends a random dog image along with a fact in the footer.")
 async def dog(interaction: discord.Interaction):
    async with aiohttp.ClientSession() as session:
@@ -1083,6 +1091,29 @@ async def dog(interaction: discord.Interaction):
    dogEmbed.set_image(url=dogjson['link'])
    dogEmbed.set_footer(text=factjson['fact'])
    await interaction.response.send_message(embed=dogEmbed)
+
+@client.command()
+async def dog(ctx: commands.Context):
+        async with ctx.session.get('https://random.dog/woof') as resp:
+            if resp.status != 200:
+                return await ctx.send('No dog found :(')
+
+            filename = await resp.text()
+            url = f'https://random.dog/{filename}'
+            filesize = ctx.guild.filesize_limit if ctx.guild else 8388608
+            if filename.endswith(('.mp4', '.webm')):
+                async with ctx.typing():
+                    async with ctx.session.get(url) as other:
+                        if other.status != 200:
+                            return await ctx.send('Could not download dog video :(')
+
+                        if int(other.headers['Content-Length']) >= filesize:
+                            return await ctx.send(f'Video was too big to upload... See it here: {url} instead.')
+
+                        fp = io.BytesIO(await other.read())
+                        await ctx.send(file=discord.File(fp, filename=filename))
+            else:
+                await ctx.send(embed=discord.Embed(title='Random Dog').set_image(url=url))
 
 @client.tree.command(name="meme", description="Sends a random meme.")
 async def meme(interaction: discord.Interaction):
@@ -1204,7 +1235,7 @@ class Help(discord.ui.Select):
             funHelpEmbed.add_field(name="Meme", value=">>> Sends a random meme\n Syntax: `o!meme` (Available in slash commands)", inline=False)
             funHelpEmbed.add_field(name="Rock Paper Scissors", value=">>> Play rock paper scissors with the bot\n Syntax: `o!rps [choice]`", inline=False)
             funHelpEmbed.add_field(name="Guess", value=">>> Guess a random number between 0-100\n Syntax: `o!guess [number]`", inline=False)
-            # funHelpEmbed.add_field(name="Guess", value=">>> Guess a random number between 0-100\n Syntax: `o!guess [number]`", inline=False)
+            funHelpEmbed.add_field(name="Tic Tac Toe", value=">>> Play tic tac toe! (can't play with another user and neither with cpu).\n Syntax: `o!ttt`", inline=False)
             funHelpEmbed.timestamp = datetime.datetime.now()
             funHelpEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/939661225602740224/1011786454105591878/image_search_1661299048630.jpg")
             funHelpEmbed.set_footer(text="The `o!help [command]` is not available", icon_url=client.user.avatar.url)

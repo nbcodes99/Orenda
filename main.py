@@ -1,6 +1,6 @@
 import discord, time
 import math, random
-import pywhatkit
+# import pywhatkit 
 import json, datetime
 import discord.ui, io
 import requests, aiohttp
@@ -394,24 +394,24 @@ async def unban_error(ctx, error):
 
 # UTILITY COMMANDS !!
 
-@client.command(aliases=['yt'])
-@commands.cooldown(1, 15, commands.BucketType.user)
-async def youtube(ctx, *, search):
-	await ctx.reply(pywhatkit.playonyt(search, open_video=False))
+# @client.command(aliases=['yt'])
+# @commands.cooldown(1, 15, commands.BucketType.user)
+# async def youtube(ctx, *, search):
+# 	await ctx.reply(pywhatkit.playonyt(search, open_video=False))
 
-@client.tree.command(name="youtube", description="Finds a video from youtube.")
-@commands.cooldown(1, 15, commands.BucketType.user)
-async def youtube(interaction: discord.Interaction, search: str):
-	await interaction.response.send_message(pywhatkit.playonyt(search, open_video=False))
+# @client.tree.command(name="youtube", description="Finds a video from youtube.")
+# @commands.cooldown(1, 15, commands.BucketType.user)
+# async def youtube(interaction: discord.Interaction, search: str):
+# 	await interaction.response.send_message(pywhatkit.playonyt(search, open_video=False))
 
-@youtube.error
-async def youtube_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.reply("""Syntax: ```
-o!youtube [search]
-Ex: o!youtube MrBeast
-You can also search a video by writing the video title.```
-        """)
+# @youtube.error
+# async def youtube_error(ctx, error):
+#     if isinstance(error, commands.MissingRequiredArgument):
+#         await ctx.reply("""Syntax: ```
+# o!youtube [search]
+# Ex: o!youtube MrBeast
+# You can also search a video by writing the video title.```
+#         """)
 
 @client.command(aliases=['si', 'sicon', 'servericon', 'svicon'])
 async def serverIcon(ctx):

@@ -1,12 +1,12 @@
 import discord, time
 import math, random
-import pywhatkit
+# import pywhatkit
 import json, datetime
 import discord.ui, io
 import requests, aiohttp
 import asyncio, json, os
-import logging, mouseinfo
-import pyautogui as pg
+import logging
+from dotenv import load_dotenv
 from covid import Covid
 from discord import app_commands
 import sqlite3, contextlib
@@ -394,24 +394,24 @@ async def unban_error(ctx, error):
 
 # UTILITY COMMANDS !!
 
-@client.command(aliases=['yt'])
-@commands.cooldown(1, 15, commands.BucketType.user)
-async def youtube(ctx, *, search):
-	await ctx.reply(pywhatkit.playonyt(search, open_video=False))
+# @client.command(aliases=['yt'])
+# @commands.cooldown(1, 15, commands.BucketType.user)
+# async def youtube(ctx, *, search):
+# 	await ctx.reply(pywhatkit.playonyt(search, open_video=False))
 
-@client.tree.command(name="youtube", description="Finds a video from youtube.")
-@commands.cooldown(1, 15, commands.BucketType.user)
-async def youtube(interaction: discord.Interaction, search: str):
-	await interaction.response.send_message(pywhatkit.playonyt(search, open_video=False))
+# @client.tree.command(name="youtube", description="Finds a video from youtube.")
+# @commands.cooldown(1, 15, commands.BucketType.user)
+# async def youtube(interaction: discord.Interaction, search: str):
+# 	await interaction.response.send_message(pywhatkit.playonyt(search, open_video=False))
 
-@youtube.error
-async def youtube_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.reply("""Syntax: ```
-o!youtube [search]
-Ex: o!youtube MrBeast
-You can also search a video by writing the video title.```
-        """)
+# @youtube.error
+# async def youtube_error(ctx, error):
+#     if isinstance(error, commands.MissingRequiredArgument):
+#         await ctx.reply("""Syntax: ```
+# o!youtube [search]
+# Ex: o!youtube MrBeast
+# You can also search a video by writing the video title.```
+#         """)
 
 @client.command(aliases=['si', 'sicon', 'servericon', 'svicon'])
 async def serverIcon(ctx):
@@ -1388,5 +1388,10 @@ class TicTacToe(discord.ui.View):
 async def ttt(ctx: commands.Context):
     await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
 
-# client.run(os.getenv('DISCORD_TOKEN'), log_handler=handler)
-client.run(token, log_handler=handler)
+load_dotenv()
+client.run(os.getenv('DISCORD_TOKEN'), log_handler=handler)
+
+
+
+
+# client.run(token, log_handler=handler)

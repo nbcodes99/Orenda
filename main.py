@@ -1003,7 +1003,7 @@ class Guess(discord.ui.View):
             failGuessEmbed.set_footer(text="Loser Loser!")
             await interaction.response.send_message(embed=failGuessEmbed)
 
-    @discord.ui.button(label="JACKPOT!", style=discord.ButtonStyle.blurple)
+    @discord.ui.button(label="Higher", style=discord.ButtonStyle.blurple)
     async def higher_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
         secret_number = random.randint(0, 100)
         hint_number = random.randint(0, 100)

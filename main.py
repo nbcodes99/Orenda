@@ -978,12 +978,14 @@ class Guess(discord.ui.View):
             successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
             successGuessEmbed.set_footer(text="Winner Winner")
             await interaction.response.edit_message(embed=successGuessEmbed)
+            await interaction.response.send_message("You got it!", ephemeral=True)
         else:
             failGuessEmbed = discord.Embed(title="You lost!", description="...", color=0xff2424)
             failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
             failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
             failGuessEmbed.set_footer(text="Loser Loser!")
             await interaction.response.send_message(embed=failGuessEmbed)
+            await interaction.response.send_message("You failed!", ephemeral=True)
 
     @discord.ui.button(label="JACKPOT!", style=discord.ButtonStyle.blurple)
     async def jackpot_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -996,12 +998,14 @@ class Guess(discord.ui.View):
             successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
             successGuessEmbed.set_footer(text="Winner Winner")
             await interaction.response.edit_message(embed=successGuessEmbed)
+            await interaction.response.send_message("You got it!", ephemeral=True)
         else:
             failGuessEmbed = discord.Embed(title="You lost!", description="...", color=0xff2424)
             failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
             failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
             failGuessEmbed.set_footer(text="Loser Loser!")
             await interaction.response.send_message(embed=failGuessEmbed)
+            await interaction.response.send_message("You failed!", ephemeral=True)
 
     @discord.ui.button(label="Higher", style=discord.ButtonStyle.blurple)
     async def higher_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -1014,12 +1018,14 @@ class Guess(discord.ui.View):
             successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
             successGuessEmbed.set_footer(text="Winner Winner")
             await interaction.response.edit_message(embed=successGuessEmbed)
+            await interaction.response.send_message("You got it!", ephemeral=True)
         else:
             failGuessEmbed = discord.Embed(title="You lost!", description="...", color=0xff2424)
             failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
             failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
             failGuessEmbed.set_footer(text="Loser Loser!")
             await interaction.response.edit_message(embed=failGuessEmbed)
+            await interaction.response.send_message("You failed!", ephemeral=True)
 
 @client.command()
 async def guess(ctx):

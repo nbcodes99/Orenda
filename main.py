@@ -1235,7 +1235,8 @@ class Help(discord.ui.Select):
             funHelpEmbed.add_field(name="Coinflip", value=">>> Flips a coin for either `heads` or `tails`\n Syntax: `o!coinflip` (Available in slash commands)", inline=False)
             funHelpEmbed.add_field(name="Meme", value=">>> Sends a random meme\n Syntax: `o!meme` (Available in slash commands)", inline=False)
             funHelpEmbed.add_field(name="Rock Paper Scissors", value=">>> Play rock paper scissors with the bot\n Syntax: `o!rps [choice]`", inline=False)
-            funHelpEmbed.add_field(name="Guess", value=">>> Guess a random number between 0-100\n Syntax: `o!guess [number]`", inline=False)
+            funHelpEmbed.add_field(name="Scramble", value=">>> Play scamble with the bot\n Syntax: `o!scramble`", inline=False)
+            funHelpEmbed.add_field(name="Guess", value=">>> Guess a random number between 0-100\n Syntax: `o!guess`", inline=False)
             funHelpEmbed.add_field(name="Tic Tac Toe", value=">>> Play tic tac toe! (can't play with another user and neither with cpu).\n Syntax: `o!ttt`", inline=False)
             funHelpEmbed.timestamp = datetime.datetime.now()
             funHelpEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/939661225602740224/1011786454105591878/image_search_1661299048630.jpg")
@@ -1421,8 +1422,289 @@ async def ttt(ctx: commands.Context):
     await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
 
 @client.command()
-async def test(ctx):
-    await ctx.send("Test!")
+async def scramble(ctx):
+    words = ['mnoht', 'nemoy', 'egarc', 'mah', 'ehsvart', 'puiknmp', 'ncor', 'eip', 'gahsrni', 'shusaq', 'lnafhktu', 'aalds', 'ekytru', 'ispirlgm', 'laifmy', 'tuanmu', 'otetapso', 'dinesrf', 'ima', 'ypmrgu', 'ngeam', 'ueingpn', 'tecaelebr', 'stpa', 'rfacs', 'cskos', 'ritnew', 'aterwes', 'oiedoh', 'iec', 'teminst', 'ldoc', 'baetknl', 'jetkac', 'fenzor', 'beraemc', 'inaboyc', 'eshou', 'ordo', 'rdya', 'tapryn', 'ndrega', 'lalh', 'hsde', 'artcree', 'omrdbeo', 'sgtceot']
+
+    wordR = random.choice(words)
+    await ctx.send(wordR)
+    try:
+        ans = await client.wait_for('message', timeout=20)
+    except asyncio.TimeoutError:
+        await ctx.reply("You didn't respond on time.")
+    ansContent = ans.content.lower()
+    if wordR == 'mnoht':
+        if ansContent == 'month':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+    elif wordR == 'nemoy':
+        if ansContent == 'money':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+    elif wordR == 'egarc':
+        if ansContent == 'grace':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'eip':
+        if ansContent == 'pie':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'gahsrni':
+        if ansContent == 'sharing':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'aalds':
+        if ansContent == 'salad':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ncor':
+        if ansContent == 'corn':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ekytru':
+        if ansContent == 'turkey':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'puiknmp':
+        if ansContent == 'pumpkin':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'dinesrf':
+        if ansContent == 'friends':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'shusaq':
+        if ansContent == 'squash':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'otetapso':
+        if ansContent == 'potatoes':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+    
+    elif wordR == 'laifmy':
+        if ansContent == 'family':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'venmerob':
+        if ansContent == 'november':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'tuanmu':
+        if ansContent == 'autumn':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ispirlgm':
+        if ansContent == 'pilgrims':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ehsvart':
+        if ansContent == 'harvest':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'mah':
+        if ansContent == 'ham':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ima':
+        if ansContent == 'mia':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ngeam':
+        if ansContent == 'megan':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ypmrgu':
+        if ansContent == 'grumpy':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ueingpn':
+        if ansContent == 'penguin':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'tecaelebr':
+        if ansContent == 'celebrate':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'stpa':
+        if ansContent == 'past':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ritnew':
+        if ansContent == 'winter':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'aterwes':
+        if ansContent == 'sweater':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'cskos':
+        if ansContent == 'socks':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'rfacs':
+        if ansContent == 'scarf':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ldoc':
+        if ansContent == 'cold':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'oiedoh':
+        if ansContent == 'hoodie':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'baetknl':
+        if ansContent == 'blanket':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'beraemc':
+        if ansContent == 'embrace':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'fenzor':
+        if ansContent == 'frozen':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'jetkac':
+        if ansContent == 'jacket':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'iec':
+        if ansContent == 'ice':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'teminst':
+        if ansContent == 'mittens':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'tapryn':
+        if ansContent == 'pantry':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'agtceot':
+        if ansContent == 'cottage':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'inaboyc':
+        if ansContent == 'balcony':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'rdya':
+        if ansContent == 'yard':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'artcree':
+        if ansContent == 'terrace':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'lalh':
+        if ansContent == 'hall':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'hsde':
+        if ansContent == 'shed':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'eshou':
+        if ansContent == 'house':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ordo':
+        if ansContent == 'door':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
+
+    elif wordR == 'ndrega':
+        if ansContent == 'garden':
+            await ctx.reply("Correct!")
+        else:
+            await ctx.reply("Wrong!")
 
 # load_dotenv()
 

@@ -964,46 +964,43 @@ Syntax: .rps scissors```""")
                 await ctx.reply(embed=spEmbed)
 
 class Guess(discord.ui.View):
-    def __init__(self, timeout=30):
-        super().__init__(self, timeout=timeout)
+    def __init__(self, *, timeout=30):
+        super().__init__(timeout=timeout)
 
     @discord.ui.button(label="Lower", style=discord.ButtonStyle.blurple)
     async def lower_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
         secret_number = random.randint(0, 100)
         hint_number = random.randint(0, 100)
 
-        successGuessEmbed = discord.Embed(title="You got it!!", description="", color=0x3dff24)
-        successGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
-        successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
-        successGuessEmbed.set_footer(text="Winner Winner")
-
-        failGuessEmbed = discord.Embed(title="You lost!", description="", color=0xff2424)
-        failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
-        failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
-        failGuessEmbed.set_footer(text="Loser Loser!")
         if hint_number > secret_number:
+            successGuessEmbed = discord.Embed(title="You got it!!", description="...", color=0x3dff24)
+            successGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+            successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+            successGuessEmbed.set_footer(text="Winner Winner")
             await interaction.response.edit_message(embed=successGuessEmbed)
         else:
+            failGuessEmbed = discord.Embed(title="You lost!", description="...", color=0xff2424)
+            failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+            failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+            failGuessEmbed.set_footer(text="Loser Loser!")
             await interaction.response.send_message(embed=failGuessEmbed)
 
     @discord.ui.button(label="JACKPOT!", style=discord.ButtonStyle.blurple)
     async def jackpot_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
         secret_number = random.randint(0, 100)
         hint_number = random.randint(0, 100)
-
-        successGuessEmbed = discord.Embed(title="You got it!!", description="", color=0x3dff24)
-        successGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
-        successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
-        successGuessEmbed.set_footer(text="Winner Winner")
-        # successGuessEmbed.timestamp = datetime.datetime.now()
-
-        failGuessEmbed = discord.Embed(title="You lost!", description="", color=0xff2424)
-        failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
-        failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
-        failGuessEmbed.set_footer(text="Loser Loser!")
+        
         if hint_number == secret_number:
+            successGuessEmbed = discord.Embed(title="You got it!!", description="...", color=0x3dff24)
+            successGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+            successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+            successGuessEmbed.set_footer(text="Winner Winner")
             await interaction.response.edit_message(embed=successGuessEmbed)
         else:
+            failGuessEmbed = discord.Embed(title="You lost!", description="...", color=0xff2424)
+            failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+            failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+            failGuessEmbed.set_footer(text="Loser Loser!")
             await interaction.response.send_message(embed=failGuessEmbed)
 
     @discord.ui.button(label="JACKPOT!", style=discord.ButtonStyle.blurple)
@@ -1011,19 +1008,17 @@ class Guess(discord.ui.View):
         secret_number = random.randint(0, 100)
         hint_number = random.randint(0, 100)
 
-        successGuessEmbed = discord.Embed(title="You got it!!", description="", color=0x3dff24)
-        successGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
-        successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
-        successGuessEmbed.set_footer(text="Winner Winner")
-        # successGuessEmbed.timestamp = datetime.datetime.now()
-
-        failGuessEmbed = discord.Embed(title="You lost!", description="", color=0xff2424)
-        failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
-        failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
-        failGuessEmbed.set_footer(text="Loser Loser!")
         if hint_number < secret_number:
+            successGuessEmbed = discord.Embed(title="You got it!!", description="...", color=0x3dff24)
+            successGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+            successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+            successGuessEmbed.set_footer(text="Winner Winner")
             await interaction.response.edit_message(embed=successGuessEmbed)
         else:
+            failGuessEmbed = discord.Embed(title="You lost!", description="...", color=0xff2424)
+            failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
+            failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
+            failGuessEmbed.set_footer(text="Loser Loser!")
             await interaction.response.edit_message(embed=failGuessEmbed)
 
 @client.command()
@@ -1221,7 +1216,7 @@ class Help(discord.ui.Select):
             utilHelpEmbed.add_field(name="Dictionary", value=">>> The dictionary command that searches a word on google\n Syntax: `o!google [word]` (Available in slash commands).", inline=False)
             utilHelpEmbed.add_field(name="Reminder", value=">>> A reminder command that reminds you about something\n Syntax: `o!remind [time] [about]`", inline=False)
             utilHelpEmbed.add_field(name="Timer", value=">>> A timer command\n Syntax: `o!timer [time] [timerName]`", inline=False)
-            utilHelpEmbed.add_field(name="Youtube", value=">>> Gets a video from youtube \n Syntax: `o!youtube [video]` (Available in slash commands)", inline=False)
+            # utilHelpEmbed.add_field(name="Youtube", value=">>> Gets a video from youtube \n Syntax: `o!youtube [video]` (Available in slash commands)", inline=False)
             utilHelpEmbed.timestamp = datetime.datetime.now()
             utilHelpEmbed.set_footer(text="The `o!help [command]` is not available", icon_url=client.user.avatar.url)
             utilHelpEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/939661225602740224/1011786454332096592/image_search_1661299026218.jpg")
@@ -1291,7 +1286,7 @@ class HelpView(discord.ui.View):
 async def help(ctx):
     helpSview = HelpView()
     helpEmbed = discord.Embed(title="Bot Help", description=f"Hello {ctx.author.mention}! Welcome to the help page.\n Use the dropdown menu below to select a category for help.", color=0xc8ff75)
-    helpEmbed.add_field(name="About me", value=">>> I am a **general-purpose bot** that is made to enhance your server with `moderation` and `auto bad word blocker`! On the other hand, I have other commands you can use or mess around with. \n You can get further information on my commands by using the dropdown below.", inline=False)
+    helpEmbed.add_field(name="About me", value=">>> I am a **general-purpose bot** that is made to enhance your server with `moderation` and `fun` commands! On the other hand, I have other commands you can use or mess around with. \n You can get further information on my commands by using the dropdown below.", inline=False)
     await ctx.send(embed=helpEmbed, view=helpSview)
 
 # class ModView(discord.ui.View):
@@ -1418,6 +1413,10 @@ class TicTacToe(discord.ui.View):
 @client.command()
 async def ttt(ctx: commands.Context):
     await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
+
+@client.command()
+async def test(ctx):
+    await ctx.send("Test!")
 
 # load_dotenv()
 

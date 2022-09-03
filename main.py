@@ -984,7 +984,7 @@ class Guess(discord.ui.View):
             failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
             failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
             failGuessEmbed.set_footer(text="Loser Loser!")
-            await interaction.response.send_message(embed=failGuessEmbed)
+            await interaction.response.edit_message(embed=failGuessEmbed)
             await interaction.response.send_message("You failed!", ephemeral=True)
 
     @discord.ui.button(label="JACKPOT!", style=discord.ButtonStyle.blurple)
@@ -998,14 +998,13 @@ class Guess(discord.ui.View):
             successGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
             successGuessEmbed.set_footer(text="Winner Winner")
             await interaction.response.edit_message(embed=successGuessEmbed)
-            await interaction.response.send_message("You got it!", ephemeral=True)
+
         else:
             failGuessEmbed = discord.Embed(title="You lost!", description="...", color=0xff2424)
             failGuessEmbed.set_author(name=f"{interaction.user.name}\'s high-low", icon_url=interaction.user.avatar.url)
             failGuessEmbed.add_field(name="", value=f"Your hint was {hint_number}. The hidden number was {secret_number}!", inline=False)
             failGuessEmbed.set_footer(text="Loser Loser!")
-            await interaction.response.send_message(embed=failGuessEmbed)
-            await interaction.response.send_message("You failed!", ephemeral=True)
+            await interaction.response.edit_message(embed=failGuessEmbed)
 
     @discord.ui.button(label="Higher", style=discord.ButtonStyle.blurple)
     async def higher_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -1263,7 +1262,6 @@ class Help(discord.ui.Select):
             configHelpEmbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/939661225602740224/1011786454810238986/image_search_1661298865576.jpg")
             configHelpEmbed.set_footer(text="The `o!help [command]` is not available", icon_url=client.user.avatar.url)
             await interaction.response.edit_message(embed=configHelpEmbed)
-            # await interaction.response.send_modal(Intro())
 
         if self.values[0] == "7":
             otherHelpEmbed = discord.Embed(title="Other Commands", color=0x5681c8)
@@ -1423,288 +1421,305 @@ async def ttt(ctx: commands.Context):
 
 @client.command()
 async def scramble(ctx):
-    words = ['mnoht', 'nemoy', 'egarc', 'mah', 'ehsvart', 'puiknmp', 'ncor', 'eip', 'gahsrni', 'shusaq', 'lnafhktu', 'aalds', 'ekytru', 'ispirlgm', 'laifmy', 'tuanmu', 'otetapso', 'dinesrf', 'ima', 'ypmrgu', 'ngeam', 'ueingpn', 'tecaelebr', 'stpa', 'rfacs', 'cskos', 'ritnew', 'aterwes', 'oiedoh', 'iec', 'teminst', 'ldoc', 'baetknl', 'jetkac', 'fenzor', 'beraemc', 'inaboyc', 'eshou', 'ordo', 'rdya', 'tapryn', 'ndrega', 'lalh', 'hsde', 'artcree', 'omrdbeo', 'sgtceot']
+    words = ['mnoht', 'nemoy', 'egarc', 'mah', 'ehsvart', 'puiknmp', 'ncor', 'eip', 'gahsrni', 'shusaq', 'lnafhktu', 'aalds', 'ekytru', 'ispirlgm', 'laifmy', 'tuanmu', 'otetapso', 'dinesrf', 'dnbroan', 'ypmrgu', 'ngeam', 'ueingpn', 'tecaelebr', 'stpa', 'rfacs', 'cskos', 'ritnew', 'aterwes', 'oiedoh', 'iec', 'teminst', 'ldoc', 'baetknl', 'jetkac', 'fenzor', 'beraemc', 'inaboyc', 'eshou', 'ordo', 'rdya', 'tapryn', 'ndrega', 'lalh', 'hsde', 'artcree', 'omrdbeo', 'sgtceot']
 
     wordR = random.choice(words)
-    await ctx.send(wordR)
+    correct = ["That's correct!", "Yes, that's right.", "You're quite right.", "Yes, that's correct.", "That's spot on!", "You've hit the nail on the head.", "You could say so.", "Accurate!", "Absolutely.", "Right, right!", "Perfect"]
+    wrong = ['You failed!', "That's wrong!", "Incorrect!", "Unpromising.", "Fruitless!", "Disappointing.", "Inadequate.", "That's unfortunate!", "Better luck next time.", "That's not the word."]
+
+    timeout = ["You didn't respond on time.", "You're out of time.", "Time's up!", "There's no more time.", "Clock has run out.", "Ancient time's up."]
+
+    correctRandom = random.choice(correct)
+    wrongRandom = random.choice(wrong)
+
+    await ctx.send(f"Your word is... `{wordR}`")
+
+    def check(ctx, m: discord.Message):
+        return m.author.id == ctx.author.id and m.channel.id  == ctx.channel.id
+
     try:
-        ans = await client.wait_for('message', timeout=20)
+        ans = await client.wait_for('message', check = check, timeout=40)
     except asyncio.TimeoutError:
-        await ctx.reply("You didn't respond on time.")
-    ansContent = ans.content.lower()
+        await ctx.reply(random.choice(timeout))
+        return
+
+    ansContent = ans.author
     if wordR == 'mnoht':
         if ansContent == 'month':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
     elif wordR == 'nemoy':
         if ansContent == 'money':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
     elif wordR == 'egarc':
         if ansContent == 'grace':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'eip':
         if ansContent == 'pie':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'gahsrni':
         if ansContent == 'sharing':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'aalds':
         if ansContent == 'salad':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'ncor':
         if ansContent == 'corn':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'ekytru':
         if ansContent == 'turkey':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'puiknmp':
         if ansContent == 'pumpkin':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'dinesrf':
         if ansContent == 'friends':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'shusaq':
         if ansContent == 'squash':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'otetapso':
         if ansContent == 'potatoes':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
     
     elif wordR == 'laifmy':
         if ansContent == 'family':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'venmerob':
         if ansContent == 'november':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'tuanmu':
         if ansContent == 'autumn':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'ispirlgm':
         if ansContent == 'pilgrims':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'ehsvart':
         if ansContent == 'harvest':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'mah':
         if ansContent == 'ham':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
-    elif wordR == 'ima':
-        if ansContent == 'mia':
-            await ctx.reply("Correct!")
+    elif wordR == 'dnbroan':
+        if ansContent == 'brandon':
+            await ctx.reply("The name was so easy to guess, huh?")
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply("Ahh.. That's unfortunate! It's Brandon!")
 
     elif wordR == 'ngeam':
         if ansContent == 'megan':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'ypmrgu':
         if ansContent == 'grumpy':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'ueingpn':
         if ansContent == 'penguin':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'tecaelebr':
         if ansContent == 'celebrate':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'stpa':
         if ansContent == 'past':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'ritnew':
         if ansContent == 'winter':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'aterwes':
         if ansContent == 'sweater':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'cskos':
         if ansContent == 'socks':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'rfacs':
         if ansContent == 'scarf':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'ldoc':
         if ansContent == 'cold':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'oiedoh':
         if ansContent == 'hoodie':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'baetknl':
         if ansContent == 'blanket':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'beraemc':
         if ansContent == 'embrace':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'fenzor':
         if ansContent == 'frozen':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'jetkac':
         if ansContent == 'jacket':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'iec':
         if ansContent == 'ice':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'teminst':
         if ansContent == 'mittens':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'tapryn':
         if ansContent == 'pantry':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'agtceot':
         if ansContent == 'cottage':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'inaboyc':
         if ansContent == 'balcony':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'rdya':
         if ansContent == 'yard':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'artcree':
         if ansContent == 'terrace':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'lalh':
         if ansContent == 'hall':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'hsde':
         if ansContent == 'shed':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'eshou':
         if ansContent == 'house':
-            await ctx.reply("Correct!")
-        else:
-            await ctx.reply("Wrong!")
+            await ctx.reply("Got it!!")
+        elif ansContent != 'house':
+            await ctx.send("That")
+
+        elif ansContent == 'idk' or ansContent == 'what':
+            await ctx.reply("Alright!")
 
     elif wordR == 'ordo':
         if ansContent == 'door':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
     elif wordR == 'ndrega':
         if ansContent == 'garden':
-            await ctx.reply("Correct!")
+            await ctx.reply(correctRandom)
         else:
-            await ctx.reply("Wrong!")
+            await ctx.reply(wrongRandom)
 
 # load_dotenv()
 

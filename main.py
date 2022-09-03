@@ -1444,10 +1444,10 @@ async def scramble(ctx):
         return
 
     ansContent = False
-    async for pastMessage in ctx.channel.history(limit=None)
-    if not ansContent:
-        ansContent = (pastMessage.author.id == ctx.author.id)
-        break
+    async for pastMessage in ctx.channel.history(limit=None):
+        if not ansContent:
+            ansContent = (pastMessage.author.id == ctx.author.id)
+            break
 
     # ansContent = ans.content
 

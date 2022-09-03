@@ -1746,281 +1746,281 @@ class Scramble(discord.ui.Modal, title="Scramble"):
     async def on_submit(self, interaction: discord.Interaction):
 
         if wordR == 'mnoht':
-        if answer == 'month':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
-    elif wordR == 'nemoy':
-        if answer == 'money':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
-    elif wordR == 'egarc':
-        if answer == 'grace':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+            if answer == 'month':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
+        elif wordR == 'nemoy':
+            if answer == 'money':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
+        elif wordR == 'egarc':
+            if answer == 'grace':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'eip':
-        if answer == 'pie':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'eip':
+            if answer == 'pie':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'gahsrni':
-        if answer == 'sharing':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'gahsrni':
+            if answer == 'sharing':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'aalds':
-        if answer == 'salad':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'aalds':
+            if answer == 'salad':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'ncor':
-        if answer == 'corn':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ncor':
+            if answer == 'corn':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'ekytru':
-        if answer == 'turkey':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ekytru':
+            if answer == 'turkey':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'puiknmp':
-        if answer == 'pumpkin':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'puiknmp':
+            if answer == 'pumpkin':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'dinesrf':
-        if answer == 'friends':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'dinesrf':
+            if answer == 'friends':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'shusaq':
-        if answer == 'squash':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'shusaq':
+            if answer == 'squash':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'otetapso':
-        if answer == 'potatoes':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
-    
-    elif wordR == 'laifmy':
-        if answer == 'family':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'otetapso':
+            if answer == 'potatoes':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
+        
+        elif wordR == 'laifmy':
+            if answer == 'family':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'venmerob':
-        if answer == 'november':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'venmerob':
+            if answer == 'november':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'tuanmu':
-        if answer == 'autumn':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'tuanmu':
+            if answer == 'autumn':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'ispirlgm':
-        if answer == 'pilgrims':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ispirlgm':
+            if answer == 'pilgrims':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'ehsvart':
-        if answer == 'harvest':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ehsvart':
+            if answer == 'harvest':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'mah':
-        if answer == 'ham':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'mah':
+            if answer == 'ham':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'dnbroan':
-        if answer == 'brandon':
-            await ctx.reply("The name was so easy to guess, huh?")
-        else:
-            await ctx.reply("Ahh.. That's unfortunate! It's Brandon!")
+        elif wordR == 'dnbroan':
+            if answer == 'brandon':
+                await ctx.reply("The name was so easy to guess, huh?")
+            else:
+                await ctx.reply("Ahh.. That's unfortunate! It's Brandon!")
 
-    elif wordR == 'ngeam':
-        if answer == 'megan':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ngeam':
+            if answer == 'megan':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'ypmrgu':
-        if answer == 'grumpy':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ypmrgu':
+            if answer == 'grumpy':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'ueingpn':
-        if answer == 'penguin':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ueingpn':
+            if answer == 'penguin':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'tecaelebr':
-        if answer == 'celebrate':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'tecaelebr':
+            if answer == 'celebrate':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'stpa':
-        if answer == 'past':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'stpa':
+            if answer == 'past':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'ritnew':
-        if answer == 'winter':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ritnew':
+            if answer == 'winter':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'aterwes':
-        if answer == 'sweater':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'aterwes':
+            if answer == 'sweater':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'cskos':
-        if answer == 'socks':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'cskos':
+            if answer == 'socks':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'rfacs':
-        if answer == 'scarf':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'rfacs':
+            if answer == 'scarf':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'ldoc':
-        if answer == 'cold':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ldoc':
+            if answer == 'cold':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'oiedoh':
-        if answer == 'hoodie':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'oiedoh':
+            if answer == 'hoodie':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'baetknl':
-        if answer == 'blanket':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'baetknl':
+            if answer == 'blanket':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'beraemc':
-        if answer == 'embrace':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'beraemc':
+            if answer == 'embrace':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'fenzor':
-        if answer == 'frozen':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'fenzor':
+            if answer == 'frozen':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'jetkac':
-        if answer == 'jacket':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'jetkac':
+            if answer == 'jacket':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'iec':
-        if answer == 'ice':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'iec':
+            if answer == 'ice':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'teminst':
-        if answer == 'mittens':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'teminst':
+            if answer == 'mittens':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'tapryn':
-        if answer == 'pantry':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'tapryn':
+            if answer == 'pantry':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'agtceot':
-        if answer == 'cottage':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'agtceot':
+            if answer == 'cottage':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'inaboyc':
-        if answer == 'balcony':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'inaboyc':
+            if answer == 'balcony':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'rdya':
-        if answer == 'yard':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'rdya':
+            if answer == 'yard':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'artcree':
-        if answer == 'terrace':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'artcree':
+            if answer == 'terrace':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'lalh':
-        if answer == 'hall':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'lalh':
+            if answer == 'hall':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'hsde':
-        if answer == 'shed':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'hsde':
+            if answer == 'shed':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'eshou':
-        if answer == 'house':
-            await ctx.reply("Got it!!")
-        elif answer != 'house':
-            await ctx.send("That")
+        elif wordR == 'eshou':
+            if answer == 'house':
+                await ctx.reply("Got it!!")
+            elif answer != 'house':
+                await ctx.send("That")
 
-        elif answer == 'idk' or answer == 'what':
-            await ctx.reply("Alright!")
+            elif answer == 'idk' or answer == 'what':
+                await ctx.reply("Alright!")
 
-    elif wordR == 'ordo':
-        if answer == 'door':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ordo':
+            if answer == 'door':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
-    elif wordR == 'ndrega':
-        if answer == 'garden':
-            await interaction.response.send_message(correctRandom)
-        else:
-            await interaction.response.send_message(wrongRandom)
+        elif wordR == 'ndrega':
+            if answer == 'garden':
+                await interaction.response.send_message(correctRandom)
+            else:
+                await interaction.response.send_message(wrongRandom)
 
 @client.command()
 async def scramble(interaction: discord.Interaction):

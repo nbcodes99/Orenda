@@ -1434,16 +1434,23 @@ async def scramble(ctx):
 
     await ctx.send(f"Your word is... `{wordR}`")
 
-    def check(ctx, m: discord.Message):
-        return m.author.id == ctx.author.id and m.channel.id  == ctx.channel.id
+    # def check(ctx, m: discord.Message):
+    #     return m.author.id == ctx.author.id and m.channel.id  == ctx.channel.id
 
     try:
-        ans = await client.wait_for('message', check = check, timeout=40)
+        ans = await client.wait_for('message', timeout=40)
     except asyncio.TimeoutError:
         await ctx.reply(random.choice(timeout))
         return
 
-    ansContent = ans.author
+    ansContent = False
+    async for pastMessage in ctx.channel.history(limit=None)
+    if not ansContent:
+        ansContent = (pastMessage.author.id == ctx.author.id)
+        break
+
+    # ansContent = ans.content
+
     if wordR == 'mnoht':
         if ansContent == 'month':
             await ctx.reply(correctRandom)

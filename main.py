@@ -1853,9 +1853,9 @@ class Scramble(discord.ui.Modal, title="Scramble"):
 
         elif self.wordR == 'dnbroan':
             if self.answer == 'brandon':
-                await ctx.reply("The name was so easy to guess, huh?")
+                await interaction.response.send_message("The name was so easy to guess, huh?")
             else:
-                await ctx.reply("Ahh.. That's unfortunate! It's Brandon!")
+                await interaction.response.send_message("Ahh.. That's unfortunate! It's Brandon!")
 
         elif self.wordR == 'ngeam':
             if self.answer == 'megan':
@@ -2003,12 +2003,9 @@ class Scramble(discord.ui.Modal, title="Scramble"):
 
         elif self.wordR == 'eshou':
             if self.answer == 'house':
-                await ctx.reply("Got it!!")
-            elif self.answer != 'house':
-                await ctx.send("That")
-
-            elif self.answer == 'idk' or self.answer == 'what':
-                await ctx.reply("Alright!")
+                await interaction.response.send_message(self.correctRandom)
+            else:
+                await interaction.response.send_message(self.wrongRandom)
 
         elif self.wordR == 'ordo':
             if self.answer == 'door':

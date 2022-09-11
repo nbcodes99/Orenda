@@ -910,14 +910,14 @@ Syntax: .rps scissors```""")
         await ctx.reply("Retry with a valid choice.")
     else:
         if compAns == answer:
-            tieEmbed = discord.Embed(title=f"{ties}", description=f"", color=0xc28024)
+            tieEmbed = discord.Embed(title=f"{ties}", url="https://brandon31.github.io/Rock-Paper-Scissors/", description=f"", color=0xc28024)
             tieEmbed.add_field(name="Choices", value=f"**Your choice**: {answer}\n**My choice**: {compAns}")
             tieEmbed.set_footer(text="Rock | Paper | Scissors", icon_url=ctx.author.avatar.url)
             tieEmbed.timestamp = datetime.datetime.now()
             await ctx.reply(embed=tieEmbed)
         if compAns == 'rock':
             if answer == 'paper':
-                rpEmbed = discord.Embed(title="YOU WON!", description=f"Aw man, you actually managed to beat me, i call a rematch.", color=0x2cdd2f)
+                rpEmbed = discord.Embed(title="YOU WON!", url="https://brandon31.github.io/Rock-Paper-Scissors/", description=f"Aw man, you actually managed to beat me, i call a rematch.", color=0x2cdd2f)
                 rpEmbed.add_field(name="Choices", value=f"**Your choice**: {answer}\n**My choice**: {compAns}")
                 rpEmbed.set_footer(text="Rock | Paper | Scissors", icon_url=ctx.author.avatar.url)
                 rpEmbed.timestamp = datetime.datetime.now()
@@ -925,7 +925,7 @@ Syntax: .rps scissors```""")
                 
         if compAns == 'paper':
             if answer == 'rock':
-                prEmbed = discord.Embed(title="Hahaha.. You lose!", description=f"Nice try, but I won that time!!", color=0xd92417)
+                prEmbed = discord.Embed(title="Hahaha.. You lose!", url="https://brandon31.github.io/Rock-Paper-Scissors/",, description=f"Nice try, but I won that time!!", color=0xd92417)
                 prEmbed.add_field(name="Choices", value=f"**Your choice**: {answer}\n**My choice**: {compAns}")
                 prEmbed.set_footer(text="Rock | Paper | Scissors", icon_url=ctx.author.avatar.url)
                 prEmbed.timestamp = datetime.datetime.now()
@@ -933,7 +933,7 @@ Syntax: .rps scissors```""")
                 
         if compAns == 'scissors':
             if answer == 'rock':
-                srEmbed = discord.Embed(title="YOU WON!", description=f"The pen beats the sword? More like the paper beats the rock!!", color=0x2cdd2f)
+                srEmbed = discord.Embed(title="YOU WON!", url="https://brandon31.github.io/Rock-Paper-Scissors/",  description=f"The pen beats the sword? More like the paper beats the rock!!", color=0x2cdd2f)
                 srEmbed.add_field(name="Choices", value=f"**Your choice**: {answer}\n**My choice**: {compAns}")
                 srEmbed.set_footer(text="Rock | Paper | Scissors", icon_url=ctx.author.avatar.url)
                 prEmbed.timestamp = datetime.datetime.now()
@@ -941,7 +941,7 @@ Syntax: .rps scissors```""")
             
         if compAns == 'rock':
             if answer == 'scissors':
-                rsEmbed = discord.Embed(title="Hahaha I WON!", description=f"HAHA!! I JUST CRUSHED YOU!! I ROCK!!", color=0xd92417)
+                rsEmbed = discord.Embed(title="Hahaha I WON!", url="https://brandon31.github.io/Rock-Paper-Scissors/", description=f"HAHA!! I JUST CRUSHED YOU!! I ROCK!!", color=0xd92417)
                 rsEmbed.add_field(name="Choices", value=f"**Your choice**: {answer}\n**My choice**: {compAns}")
                 rsEmbed.set_footer(text="Rock | Paper | Scissors", icon_url=ctx.author.avatar.url)
                 rsEmbed.timestamp = datetime.datetime.now()
@@ -949,7 +949,7 @@ Syntax: .rps scissors```""")
 
         if compAns == 'paper':
             if answer == 'scissors':
-                psEmbed = discord.Embed(title="You won!", description=f"Damn it! You won. It won't happen again!", color=0x2cdd2f)
+                psEmbed = discord.Embed(title="You won!", url="https://brandon31.github.io/Rock-Paper-Scissors/",  description=f"Damn it! You won. It won't happen again!", color=0x2cdd2f)
                 psEmbed.add_field(name="Choices", value=f"**Your choice**: {answer}\n**My choice**: {compAns}")
                 psEmbed.set_footer(text="Rock | Paper | Scissors", icon_url=ctx.author.avatar.url)
                 psEmbed.timestamp = datetime.datetime.now()
@@ -957,7 +957,7 @@ Syntax: .rps scissors```""")
                 
         if compAns == 'scissors':
             if answer == 'paper':
-                spEmbed = discord.Embed(title="You lose!", description=f"Yay! I won! Try your luck again.", color=0xd92417)
+                spEmbed = discord.Embed(title="You lose!", url="https://brandon31.github.io/Rock-Paper-Scissors/", description=f"Yay! I won! Try your luck again.", color=0xd92417)
                 spEmbed.add_field(name="Choices", value=f"**Your choice**: {answer}\n**My choice**: {compAns}")
                 spEmbed.set_footer(text="Rock | Paper | Scissors", icon_url=ctx.author.avatar.url)
                 spEmbed.timestamp = datetime.datetime.now()
@@ -968,7 +968,7 @@ class Guess(discord.ui.View):
         super().__init__(timeout=timeout)
 
     @discord.ui.button(label="Lower", style=discord.ButtonStyle.blurple)
-    async def lower_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def lower_callback(interaction: discord.Interaction, button: discord.ui.Button):
         secret_number = random.randint(0, 100)
         hint_number = random.randint(0, 100)
 
@@ -988,7 +988,7 @@ class Guess(discord.ui.View):
             await interaction.response.send_message("You failed!", ephemeral=True)
 
     @discord.ui.button(label="JACKPOT!", style=discord.ButtonStyle.blurple)
-    async def jackpot_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def jackpot_callback(interaction: discord.Interaction, button: discord.ui.Button):
         secret_number = random.randint(0, 100)
         hint_number = random.randint(0, 100)
         
@@ -1007,7 +1007,7 @@ class Guess(discord.ui.View):
             await interaction.response.edit_message(embed=failGuessEmbed)
 
     @discord.ui.button(label="Higher", style=discord.ButtonStyle.blurple)
-    async def higher_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def higher_callback(interaction: discord.Interaction, button: discord.ui.Button):
         secret_number = random.randint(0, 100)
         hint_number = random.randint(0, 100)
 

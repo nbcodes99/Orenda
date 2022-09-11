@@ -925,7 +925,7 @@ Syntax: .rps scissors```""")
                 
         if compAns == 'paper':
             if answer == 'rock':
-                prEmbed = discord.Embed(title="Hahaha.. You lose!", url="https://brandon31.github.io/Rock-Paper-Scissors/",, description=f"Nice try, but I won that time!!", color=0xd92417)
+                prEmbed = discord.Embed(title="Hahaha.. You lose!", url="https://brandon31.github.io/Rock-Paper-Scissors/", description=f"Nice try, but I won that time!!", color=0xd92417)
                 prEmbed.add_field(name="Choices", value=f"**Your choice**: {answer}\n**My choice**: {compAns}")
                 prEmbed.set_footer(text="Rock | Paper | Scissors", icon_url=ctx.author.avatar.url)
                 prEmbed.timestamp = datetime.datetime.now()
